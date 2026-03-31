@@ -68,7 +68,11 @@ for ID in $(seq 10002 10150) $(seq 11001 11107); do
 dwi2fod csd dwi_output/${ID}_v2preproc_unbiased.mif group_average_response.txt wmfod/${ID}_wmfod.mif 
 done
 
+## create population template
 population_template wmfod/ -mask_dir eddy_afterants/ wmfod_template.mif  
+
+# if youre having issues with population template (large shears) use this to check the mask alignment. Change files as nessicary
+### mrcat linear_template06_c0.mif $(mrgrid input_transformed_c0/0089.mif regrid -template linear_template05_c0.mif -) -axis 4 - | mrview - -roi.load mask_transformed/0089.mif -roi.opacity 0.3
 
 # Register to template
 mkdir subj2temp
