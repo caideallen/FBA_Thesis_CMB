@@ -1,0 +1,10 @@
+mkdir 40plus
+ls 40plus
+mkdir fd_smooth
+mkdir log_fc_smooth
+mkdir fdc_smooth
+../
+
+while read -r id; do
+  cp "fd_smooth/${id}.mif" "40plus/fd_smooth/${id}.mif" 2>/dev/null || echo "Missing: fd_smooth/${id}.mif"
+done < 40plus.txt
