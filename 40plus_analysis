@@ -1,2 +1,9 @@
+## Separate only +40
 chmod +x c_40plus_fd.sh
 ./c_40plus_fd.sh
+
+chmod +x c_40plus_fc.sh
+./c_40plus_fc.sh
+
+chmod +x c_40plus_fdc.sh
+./c_40plus_fdc.sh
