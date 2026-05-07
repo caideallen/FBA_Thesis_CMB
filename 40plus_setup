@@ -7,3 +7,6 @@ mkdir 40plus/fdc_smooth
 while read -r id; do
   cp "fd_smooth/${id}.mif" "40plus/fd_smooth/${id}.mif" 2>/dev/null || echo "Missing: fd_smooth/${id}.mif"
 done < 40plus.txt
+
+
+mkdir -p 40plus/fd_smooth && while read -r id; do cp "fd_smooth/${id}.mif" "40plus/fd_smooth/${id}.mif" 2>/dev/null || echo "Missing: fd_smooth/${id}.mif"; done < 40plus.txt
