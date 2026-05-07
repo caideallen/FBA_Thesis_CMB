@@ -1,28 +1,27 @@
 #!/bin/bash
 
-# Input text file containing IDs (one ID per line)
 ID_FILE="40plus.txt"
-
-# Source and destination directories
 SRC_DIR="fd_smooth"
 DEST_DIR="40plus/fd_smooth"
 
-# Create destination directory if it doesn't exist
 mkdir -p "$DEST_DIR"
 
-# Read each ID from the text file
-while IFS= read -r ID; do
-    # Skip empty lines
+while read -r ID; do
+    # remove carriage returns/spaces
+    ID=$(echo "$ID" | tr -d '\r' | xargs)
+
+    # skip empty lines
     [[ -z "$ID" ]] && continue
 
     SRC_FILE="${SRC_DIR}/${ID}.mif"
-    DEST_FILE="${DEST_DIR}/${ID}.mif"
 
-    # Copy if source file exists
+    echo "Looking for: $SRC_FILE"
+
     if [[ -f "$SRC_FILE" ]]; then
-        cp "$SRC_FILE" "$DEST_FILE"
-        echo "Copied: $SRC_FILE -> $DEST_FILE"
+        cp "$SRC_FILE" "$DEST_DIR/"
+        echo "Copied $ID.mif"
     else
-        echo "Missing file: $SRC_FILE"
+        echo "Missing: $SRC_FILE"
     fi
+
 done < "$ID_FILE"
