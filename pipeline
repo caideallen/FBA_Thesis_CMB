@@ -146,7 +146,7 @@ ls fdc_smooth > files.txt
 
 ######## Here you'll create the contrast and design matrix. 
  Two group difference (two sample unpaired t test)
-## ASD is 1, NT -1. 1st measure is 
+## ASD is 1, NT -1. 1st measure is Wait IS THAT FUCKING RIGHT???? FUCK THATS HOW IT GOT WEIRD. I DONT EVEN KNOW ANYMORE.
 fixelcfestats fd_smooth/ files.txt design_group.txt contrast_group.txt matrix/ stats_fd_nocov/ 
 fixelcfestats log_fc_smooth/ files.txt design_group.txt contrast_group.txt matrix/ stats_logfc_nocov/ 
 fixelcfestats fdc_smooth/ files.txt design_group.txt contrast_group.txt matrix/ stats_fdc_nocov/
