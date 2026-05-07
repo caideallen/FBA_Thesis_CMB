@@ -1,9 +1,16 @@
-## Separate only +40
+## Separate older peeps for fd
 chmod +x c_40plus_fd.sh
 ./c_40plus_fd.sh
-
+# now log_fc
 chmod +x c_40plus_fc.sh
 ./c_40plus_fc.sh
-
+# finally fdc
 chmod +x c_40plus_fdc.sh
 ./c_40plus_fdc.sh
+
+### Recreating shit that got deleted
+# Fixel mask
+fod2fixel -mask template_mask.mif -fmls_peak_value 0.10 wmfod_template.mif fixel_mask
+#generate connectivity matrix
+fixelconnectivity fixel_mask/ tracks_2_million_sift.tck matrix/
+
