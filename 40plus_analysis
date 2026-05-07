@@ -14,8 +14,10 @@ fod2fixel -mask template_mask.mif -fmls_peak_value 0.10 wmfod_template.mif fixel
 #generate connectivity matrix
 fixelconnectivity fixel_mask/ tracks_2_million_sift.tck matrix/
 
-# Now we do the gd stats, no age by group, corrected for age/sex
+Set up baby
+ls fdc_smooth > files.txt
 
+# Now we do the gd stats, no age by group, corrected for age/sex
 fixelcfestats fd_smooth/ files.txt design_40.txt contrast_40.txt matrix/ stats_fd_40/ 
 fixelcfestats log_fc_smooth/ files.txt design_40.txt contrast_40.txt matrix/ stats_log_fc_40/ 
 fixelcfestats fdc_smooth/ files.txt design_40.txt contrast_40.txt matrix/ stats_fdc_40/
