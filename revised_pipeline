@@ -1,3 +1,5 @@
+## This uses a txt file with all the participant IDs. I will not lie to you the way I did it the first time was STUPID, this is the updated version but I havent run it all at once.
+
 #create SOL enviorment to work in
 ## VERY important to specify python 3.11 - several MRtrix scripts call on commands deprecated in later python updates 
 mamba create -n myENV -c conda-forge python=3.11
