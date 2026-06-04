@@ -1,0 +1,19 @@
+
+while IFS= read -r sub; do
+  for ses in ses-01 ses-02; do
+    dir="$src/$sub/$ses"
+    if [ -d "$dir" ]; then
+      found=0
+      while IFS= read -r -d '' d; do
+        found=1
+        cp -a "$d" "$dest/"
+      done < <(find "$dir" -maxdepth 1 -type d -name 'DTI32*' -print0)
+
+      if [ "$found" -eq 0 ]; then
+        echo "No DTI32* directories found in: $dir"
+      fi
+    else
+      echo "Directory not found: $dir"
+    fi
+  done
+done < "$idfile"
