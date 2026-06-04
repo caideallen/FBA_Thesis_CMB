@@ -9,9 +9,18 @@ while IFS= read -r id; do
 
     if [ -d "$srcdir" ]; then
       mkdir -p "$destdir"
-      find "$srcdir" -maxdepth 1 -type d -name 'DTI32*' -exec cp -a {} "$destdir/" \;
+      found=0
+
+      while IFS= read -r -d '' d; do
+        found=1
+        cp -a "$d" "$destdir/"
+      done < <(find "$srcdir" -maxdepth 1 -type d -name 'DTI32*' -print0)
+
+      if [ "$found" -eq 0 ]; then
+        echo "No DTI32* directories found in: $srcdir"
+      fi
     else
       echo "Directory not found: $srcdir"
     fi
   done
-done < "$idfile"\
+done < "$idfile"
