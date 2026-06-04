@@ -4,6 +4,19 @@ mrconvert sub-${ID}/ses-02/*/ sub-${ID}/ses-02/dwi.mif -vox 2 -coord 3 '0:1:32'
 mrconvert sub-${ID}/ses-03/*/ sub-${ID}/ses-03/dwi.mif -vox 2 -coord 3 '0:1:32'
 done < try1.txt
 
+
+while read ID; do
+    for SES in ses-01 ses-02 ses-03; do
+        DIR="sub-${ID}/${SES}"
+        if [ -d "$DIR" ]; then
+            mrconvert "${DIR}/"*/ "${DIR}/dwi.mif" -vox 2 -coord 3 '0:1:32'
+        fi
+    done
+done < try1.txt
+
+
+
+
 src=/path/to/40plus_Dicoms
 idfile=with_v2.txt
 
