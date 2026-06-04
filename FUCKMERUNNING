@@ -1,0 +1,25 @@
+src=/40plus_Dicoms
+idfile=with_v2.txt
+
+while IFS= read -r id; do
+  [ -z "$id" ] && continue
+  sub="sub-$id"
+
+  for ses in ses-01 ses-02 ses-03; do
+    sesdir="$src/$sub/$ses"
+
+    if [ -d "$sesdir" ]; then
+      find "$sesdir" -maxdepth 1 -type d -name 'DTI32*' -print0 |
+      while IFS= read -r -d '' d; do
+        dname=$(basename "$d")
+        out="$sesdir/${id}_vox.mif"
+
+        mrconvert "$d" "$out" -vox 2 -coord 3 '0:1:32' -grad \
+          -export_grad_mrtrix "$sesdir/${id}.b" \
+          -export_grad_fsl "$sesdir/${id}.bvec" "$sesdir/${id}.bval"
+      done
+    else
+      echo "Directory not found: $sesdir"
+    fi
+  done
+done < "$idfile"
