@@ -1,12 +1,17 @@
 
 while IFS= read -r id; do
+  [ -z "$id" ] && continue
   sub="sub-$id"
+
   for ses in ses-01 ses-02; do
-    dir="$src/$sub/$ses"
-    if [ -d "$dir" ]; then
-      find "$dir" -maxdepth 1 -type d -name 'DTI32*' -exec cp -a {} "$dest/" \;
+    srcdir="$src/$sub/$ses"
+    destdir="$dest/$sub/$ses"
+
+    if [ -d "$srcdir" ]; then
+      mkdir -p "$destdir"
+      find "$srcdir" -maxdepth 1 -type d -name 'DTI32*' -exec cp -a {} "$destdir/" \;
     else
-      echo "Directory not found: $dir"
+      echo "Directory not found: $srcdir"
     fi
   done
-done < "$idfile"
+done < "$idfile"\
