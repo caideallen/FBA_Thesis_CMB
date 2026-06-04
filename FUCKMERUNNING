@@ -1,30 +1,8 @@
-while IFS= read -r id; do
-  [ -z "$id" ] && continue
-  sub="sub-$id"
-
-  for ses in ses-01 ses-02 ses-03; do
-    sesdir="$src/$sub/$ses"
-    echo "Checking: $sesdir"
-
-    if [ -d "$sesdir" ]; then
-      find "$sesdir" -maxdepth 1 -type d -name 'DTI32*' -print0 |
-      while IFS= read -r -d '' d; do
-        base=$(basename "$d")
-        out="$sesdir/${base}_vox.mif"
-        mrconvert "$d" "$out" -vox 2 -coord 3 '0:1:32' -grad \
-          -export_grad_mrtrix "$sesdir/${base}.b" \
-          -export_grad_fsl "$sesdir/${base}.bvec" "$sesdir/${base}.bval"
-      done
-    else
-      echo "Directory not found: $sesdir"
-    fi
-  done
-done < "$idfile"
-
-
 while read ID; do
-cd "$ID"
-echo
+mrconvert sub-${ID}/ses-01/*/ sub-${ID}/ses-01/dwi.mif -vox 2 -coord 3 '0:1:32'
+mrconvert sub-${ID}/ses-02/*/ sub-${ID}/ses-02/dwi.mif -vox 2 -coord 3 '0:1:32'
+mrconvert sub-${ID}/ses-03/*/ sub-${ID}/ses-03/dwi.mif -vox 2 -coord 3 '0:1:32'
+done < try1.txt
 
 src=/path/to/40plus_Dicoms
 idfile=with_v2.txt
@@ -39,7 +17,8 @@ while IFS= read -r id; do
     # rest of your code
   done
 done < "$idfile"
-
+mrconvert sub-${ID}/ses-01/*
+while read ID; do
 
 # Preproc sequence loop
 while read ID; do
