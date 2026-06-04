@@ -1,5 +1,7 @@
-while IFS= read -r sub; do
-  for ses in ses-01 ses-02 ses-03; do
+
+while IFS= read -r id; do
+  sub="sub-$id"
+  for ses in ses-01 ses-02; do
     dir="$src/$sub/$ses"
     if [ -d "$dir" ]; then
       find "$dir" -maxdepth 1 -type d -name 'DTI32*' -exec cp -a {} "$dest/" \;
