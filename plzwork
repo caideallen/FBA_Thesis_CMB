@@ -1,4 +1,9 @@
 
+for ID in 11055 11056 11059 11061 11070 11071 11074 11081 11082 11084 11085 11086 11087 11088 11092; do
+mrconvert sub-${ID}/ses-01/*/ sub-${ID}/ses-01/dwi.mif -vox 2 -coord 3 '0:1:32'
+mrconvert sub-${ID}/ses-02/*/ sub-${ID}/ses-02/dwi.mif -vox 2 -coord 3 '0:1:32'
+done
+
 while IFS= read -r id; do
   [ -z "$id" ] && continue
   sub="sub-$id"
