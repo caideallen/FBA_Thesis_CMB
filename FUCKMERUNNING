@@ -29,6 +29,7 @@ ml fsl
 mkdir preproc
 for_each degibbs/*: dwifslpreproc IN preproc/NAME -rpe_none -pe_dir AP -readout_time 0.1 -eddy_options " --slm=linear "
 
+mkdir eddy_tempmask
 
 
 
