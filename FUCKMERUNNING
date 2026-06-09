@@ -1,47 +1,20 @@
-while read ID; do
+for ID in 10001 10002 10003 10004 10005 10006 10007 10008 10009 10010 10011 10013 10014 10015 10016 10017 10018 10019 10020 10021 10029 10036 10040 10042 10044 10046 10050 10052 10057 10059 10060 10061 10069 10076 10077 10079 10086 10088 10090 10091 10092 10093 10096 10101 10103 10106 10107 10109 10112 10113 10114 10115 10119 10124 10129 10136 10137 10147 11001 11003 11006 11007 11008 11009 11012 11013 11014 11016 11017 11019 11021 11027 11028 11030 11031 11032 11033 11038 11039 11041 11042 11044 11046 11054 11055 11056 11059 11061 11070 11071 11074 11081 11082 11084 11085 11086 11087 11088 11092; do
 mrconvert sub-${ID}/ses-01/*/ sub-${ID}/ses-01/dwi.mif -vox 2 -coord 3 '0:1:32'
 mrconvert sub-${ID}/ses-02/*/ sub-${ID}/ses-02/dwi.mif -vox 2 -coord 3 '0:1:32'
 mrconvert sub-${ID}/ses-03/*/ sub-${ID}/ses-03/dwi.mif -vox 2 -coord 3 '0:1:32'
 done < try1.txt
 
-
-while read ID; do
-    for SES in ses-01 ses-02 ses-03; do
-        DIR="sub-${ID}/${SES}"
-        if [ -d "$DIR" ]; then
-            mrconvert "${DIR}/"*/ "${DIR}/dwi.mif" -vox 2 -coord 3 '0:1:32'
-        fi
-    done
-done < try1.txt
+mkdir denoised
+for ID in 10001 10002 10003 10004 10005 10006 10007 10008 10009 10010 10011 10013 10014 10015 10016 10017 10018 10019 10020 10021 10029 10036 10040 10042 10044 10046 10050 10052 10057 10059 10060 10061 10069 10076 10077 10079 10086 10088 10090 10091 10092 10093 10096 10101 10103 10106 10107 10109 10112 10113 10114 10115 10119 10124 10129 10136 10137 10147 11001 11003 11006 11007 11008 11009 11012 11013 11014 11016 11017 11019 11021 11027 11028 11030 11031 11032 11033 11038 11039 11041 11042 11044 11046 11054 11055 11056 11059 11061 11070 11071 11074 11081 11082 11084 11085 11086 11087 11088 11092; do
+dwidenoise sub-${ID}/ses-01/dwi.mif -noise denoised/${ID}v1_denoised.mif
+dwidenoise sub-${ID}/ses-02/dwi.mif -noise denoised/${ID}v2_denoised.mif
+done
 
 
-
-
-src=/path/to/40plus_Dicoms
-idfile=with_v2.txt
-
-while IFS= read -r id; do
-  [ -z "$id" ] && continue
-  sub="sub-$id"
-
-  for ses in ses-01 ses-02 ses-03; do
-    sesdir="$src/$sub/$ses"
-    echo "Checking: $sesdir"
-    # rest of your code
-  done
-done < "$idfile"
-mrconvert sub-${ID}/ses-01/*
-while read ID; do
-
-# Preproc sequence loop
-while read ID; do
-  echo "Processing subject $ID"
-# Navigate to the subject directory
-  cd "$ID" 
 # format DICOMs into mif file voxel size 2
   mrconvert DTI32/ ${ID}_vox.mif -vox 2 -coord 3 '0:1:32' -grad -export_grad_mrtrix path -export_grad_fsl bvecs_path bvals_path
 # denoise images
-  dwidenoise ${ID}_vox.mif v2vox.mif -noise v2_denoised.mif
+  dwidenoise ${ID}_vox.mif -noise v2_denoised.mif
 # calculate residuals
   mrcalc v2_denoised.mif v2vox.mif -subtract v2_res.mif
 # fsl preprocessing
