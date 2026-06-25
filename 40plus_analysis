@@ -8,7 +8,7 @@ chmod +x c_40plus_fc.sh
 chmod +x c_40plus_fdc.sh
 ./c_40plus_fdc.sh
 
-### Recreating shit that got deleted
+### Recreating what that got deleted
 # Fixel mask
 fod2fixel -mask template_mask.mif -fmls_peak_value 0.10 wmfod_template.mif fixel_mask
 #generate connectivity matrix
